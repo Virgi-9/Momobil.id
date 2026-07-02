@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import AuthModal from "./AuthModal";
 
 const subNavLinks = [
@@ -39,6 +40,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [authModal, setAuthModal] = useState<null | "masuk" | "daftar">(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,22 +53,37 @@ export default function Navbar() {
 
   return (
     <>
-    <header className={`sticky top-0 z-50 bg-white border-b border-gray-200 transition-shadow duration-300 ${isScrolled ? "shadow-lg" : ""}`}>
+    <header className={`sticky top-0 z-50 bg-white border-b border-gray-200 transition-shadow duration-300 ${isScrolled ? "shadow-lg" : ""} ${pathname !== "/" ? "hidden md:block" : ""}`}>
       {/* ── MOBILE NAVBAR ── */}
       <div className="md:hidden px-4 pt-3 pb-2">
-        {/* Row 1: Logo + Lokasi */}
-        <div className="flex items-center justify-between">
-          <Link href="/">
-            <img src="/logoweb/momobilIcon_hd.bf14c0ed.svg" alt="momobil.id" className="h-7 w-auto" />
-          </Link>
-          <div className="flex items-center gap-1 text-sm font-medium text-gray-700">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            <span>Indonesia</span>
+        {/* Row 1: Logo (homepage only) + Lokasi */}
+        {pathname === "/" && (
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <Link href="/">
+                <img src="/logoweb/momobilIcon_hd.bf14c0ed.svg" alt="momobil.id" className="h-7 w-auto" />
+              </Link>
+              <div className="flex items-center gap-1 text-sm font-medium text-gray-700">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>Indonesia</span>
+              </div>
+            </div>
+            {/* Search bar */}
+            <div className="flex items-center h-[42px] border border-gray-200 rounded-full bg-white px-4 gap-2">
+              <input
+                type="text"
+                placeholder="Cari mobil bekas ?"
+                className="flex-1 text-sm text-gray-700 placeholder-gray-400 focus:outline-none bg-white"
+              />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
+                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+              </svg>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* ── DESKTOP NAVBAR ── */}

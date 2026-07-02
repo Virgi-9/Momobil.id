@@ -46,9 +46,27 @@ export default function CarSection({ title, subtitle, cars, viewAllHref }: Props
           </Link>
         </div>
 
-        {/* Scrollable row + floating arrow */}
-        <div className="relative">
-          {/* Cards row */}
+        {/* ── MOBILE: horizontal scroll 2 card visible ── */}
+        <div className="md:hidden relative">
+          <div
+            ref={scrollRef}
+            className="flex gap-3 overflow-x-auto scrollbar-hide px-4 pb-1"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
+            {cars.map((car) => (
+              <div
+                key={car.id}
+                className="flex-shrink-0"
+                style={{ width: "calc(50% - 8px)", scrollSnapAlign: "start" }}
+              >
+                <CarCard car={car} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── DESKTOP: horizontal scroll ── */}
+        <div className="hidden md:block relative">
           <div
             ref={scrollRef}
             className="flex gap-3 overflow-x-auto scrollbar-hide px-4 lg:px-6 pb-1"
@@ -65,7 +83,6 @@ export default function CarSection({ title, subtitle, cars, viewAllHref }: Props
             ))}
           </div>
 
-          {/* Floating left arrow */}
           <button
             onClick={scrollLeft}
             aria-label="Scroll kiri"
@@ -76,20 +93,12 @@ export default function CarSection({ title, subtitle, cars, viewAllHref }: Props
             </svg>
           </button>
 
-          {/* Floating right arrow — matches the screenshot */}
           <button
             onClick={scrollRight}
             aria-label="Scroll kanan"
             className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center hover:shadow-lg hover:border-gray-300 transition-all z-10 mr-1"
           >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#374151"
-              strokeWidth="2.5"
-            >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2.5">
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>

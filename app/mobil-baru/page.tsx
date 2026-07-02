@@ -17,7 +17,7 @@ export default function MobilBaruPage() {
       <main className="pb-16 md:pb-0 bg-gray-50">
 
         {/* ── MOBILE HEADER ── */}
-        <div className="md:hidden bg-white">
+        <div className="md:hidden bg-white sticky top-0 z-50 border-b border-gray-100">
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
             <div className="flex items-center gap-2">
               <Link href="/">

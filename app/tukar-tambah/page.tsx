@@ -21,7 +21,7 @@ export default function TukarTambahPage() {
       </div>
 
       {/* Desktop Navbar */}
-      <Navbar />
+      <div className="hidden md:block"><Navbar /></div>
 
       <main className="pb-16 md:pb-0 bg-white">
 

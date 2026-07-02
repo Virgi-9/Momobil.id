@@ -16,7 +16,7 @@ function TestDriveCard({ car }: { car: typeof testDriveCars[0] }) {
   const [liked, setLiked] = useState(false);
   return (
     <Link
-      href={`/test-drive/${car.id}`}
+      href={`/mobil-bekas/219`}
       className="group block bg-white rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-200"
     >
       {/* ── MOBILE: horizontal list row ── */}
@@ -86,7 +86,7 @@ export default function TestDrivePage() {
       <main className="pb-16 md:pb-0 bg-gray-50 min-h-screen">
 
         {/* ── MOBILE HEADER ── */}
-        <div className="md:hidden bg-white">
+        <div className="md:hidden bg-white sticky top-0 z-50 border-b border-gray-100">
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
             <div className="flex items-center gap-2">
               <Link href="/">
@@ -146,13 +146,13 @@ export default function TestDrivePage() {
           {/* XtraOrder banner mobile */}
           <div className="mx-4 mt-4 bg-yellow-50 rounded-2xl p-4 border border-yellow-100">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-4xl">🚗</span>
+              <span className="text-5xl">🚗</span>
               <div>
                 <p className="font-bold text-gray-900 text-sm leading-tight">Belum menemukan mobil pilihanmu?</p>
-                <p className="text-gray-500 text-xs mt-0.5">Yuk ajukan lewat form pengajuan</p>
+                <p className="text-gray-500 text-sm mt-0.5">Yuk ajukan lewat form pengajuan</p>
               </div>
             </div>
-            <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold text-sm py-3 rounded-xl transition-colors">
+            <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold text-sm py-3.5 rounded-xl transition-colors">
               Form Pengajuan
             </button>
           </div>

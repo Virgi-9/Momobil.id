@@ -10,7 +10,7 @@ export default function NewCarCard({ car }: { car: NewCar }) {
 
   return (
     <Link
-      href={`/mobil-baru/${car.id}`}
+      href={`/mobil-bekas/219`}
       className="group block bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow duration-200"
     >
       {/* Image */}

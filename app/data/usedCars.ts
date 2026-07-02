@@ -1,6 +1,7 @@
 import type { Car } from "./cars";
 
 export const usedCarsData: Car[] = [
+  { id: 219, title: "XPANDER SPORT AT LOW KM LIKE NEW", price: "Rp 175.000.000", year: 2021, location: "KOTA JAKARTA UTARA", dateLabel: "HARI INI", image: "/mobilbekas/xpander sport.webp", category: "mpv" },
   { id: 201, title: "TOYOTA FORTUNER VRZ AT DIESEL", price: "Rp 270.000.000", year: 2019, location: "KOTA PONTIANAK", dateLabel: "HARI INI", image: "/mobilbekas/innova g at.webp", category: "suv" },
   { id: 202, title: "TOYOTA HILUX SINGLE CABIN 4X4", price: "Rp 475.000.000", year: 2020, location: "KOTA PONTIANAK", dateLabel: "HARI INI", image: "/mobilbekas/innova.webp", category: "suv" },
   { id: 203, title: "DAIHATSU SIGRA X MT 2018 HITAM", price: "Rp 165.000.000", year: 2018, location: "KAB. PONTIANAK", dateLabel: "1 HARI YANG LALU", image: "/mobilbekas/sigra r at.webp", category: "mpv" },
@@ -19,4 +20,5 @@ export const usedCarsData: Car[] = [
   { id: 216, title: "DAIHATSU AYLA TIPE X MANUAL 2019", price: "Rp 170.000.000", year: 2019, location: "KOTA PONTIANAK", dateLabel: "08 JUN", image: "/mobilbekas/brio e at.webp", category: "hatchback" },
   { id: 217, title: "TOYOTA NEW RUSH TRD SPORTIVO AT", price: "Rp 240.000.000", year: 2021, location: "KOTA PONTIANAK", dateLabel: "08 JUN", image: "/mobilbekas/innova g at.webp", category: "suv" },
   { id: 218, title: "DAIHATSU SIGRA TIPE R AT DLX 2022", price: "Rp 185.000.000", year: 2022, location: "KOTA PONTIANAK", dateLabel: "09 JUN", image: "/mobilbekas/sigra r at.webp", category: "mpv" },
+  { id: 219, title: "XPANDER SPORT AT LOW KM LIKE NEW", price: "Rp 175.000.000", year: 2021, location: "KOTA JAKARTA UTARA", dateLabel: "HARI INI", image: "/mobilbekas/xpander sport.webp", category: "mpv" },
 ];

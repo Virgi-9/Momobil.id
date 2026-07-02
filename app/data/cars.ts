@@ -21,6 +21,16 @@ export type Article = {
 
 export const mpvCars: Car[] = [
   {
+    id: 7,
+    title: "XPANDER SPORT AT LOW KM LIKE NEW",
+    price: "Rp 175.000.000",
+    year: 2021,
+    location: "KOTA JAKARTA UTARA",
+    dateLabel: "HARI INI",
+    image: "/mobilbekas/xpander sport.webp",
+    category: "mpv",
+  },
+  {
     id: 1,
     title: "HYUNDAI STARGAZER TIPE PRIME HL...",
     price: "Rp 225.000.000",

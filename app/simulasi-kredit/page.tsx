@@ -36,45 +36,39 @@ const faqs: { q: string; a: string | JSX.Element }[] = [
     a: (
       <span>
         <p className="mb-3">Konsumen dapat melihat simulasi pembiayaan mobil melalui website momobil.id dengan daftar merek kendaraan mobil sebagai berikut:</p>
-        <table className="w-full border border-gray-300 text-sm">
-          <thead>
-            <tr className="bg-yellow-400">
-              <th className="border border-gray-300 px-4 py-2 text-center font-bold text-gray-900">Merek Mobil</th>
-              <th className="border border-gray-300 px-4 py-2 text-center font-bold text-gray-900">Link Halaman Simulasi Pembiayaan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[
-              ["BMW", "https://momobil.id/bmw"],
-              ["DAIHATSU", "https://momobil.id/daihatsu"],
-              ["FORD", "https://momobil.id/ford"],
-              ["GEELY", "https://momobil.id/geely"],
-              ["HONDA", "https://momobil.id/honda"],
-              ["HYUNDAI", "https://momobil.id/hyundai"],
-              ["JEEP", "https://momobil.id/jeep"],
-              ["KIA", "https://momobil.id/kia"],
-              ["MAZDA", "https://momobil.id/mazda"],
-              ["MERCEDES BENZ", "https://momobil.id/mercedes%20benz"],
-              ["MINI", "https://momobil.id/mini"],
-              ["MITSUBISHI", "https://momobil.id/mitsubishi"],
-              ["SUBARU", "https://momobil.id/subaru"],
-              ["SUZUKI", "https://momobil.id/suzuki"],
-              ["TOYOTA", "https://momobil.id/toyota"],
-              ["WULING", "https://momobil.id/wuling"],
-              ["MG", "https://momobil.id/mg"],
-              ["CHERY", "https://momobil.id/chery"],
-              ["GWM", "https://momobil.id/gwm"],
-              ["BYD", "https://momobil.id/byd"],
-            ].map(([merek, link]) => (
-              <tr key={merek}>
-                <td className="border border-gray-300 px-4 py-2 text-center text-gray-700">{merek}</td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  <a href={link} className="text-blue-600 hover:underline">{link}</a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="border border-gray-300 rounded-lg overflow-hidden">
+          <div className="flex items-center bg-yellow-400 py-3 px-3 gap-3">
+            <span className="text-sm font-bold text-gray-900 w-1/3 flex-shrink-0 text-center border-r border-yellow-600 pr-3">Merek Mobil</span>
+            <span className="text-sm font-bold text-gray-900 flex-1 text-center">Link Halaman Simulasi Pembiayaan</span>
+          </div>
+          {[
+            ["BMW", "https://momobil.id/bmw"],
+            ["DAIHATSU", "https://momobil.id/daihatsu"],
+            ["FORD", "https://momobil.id/ford"],
+            ["GEELY", "https://momobil.id/geely"],
+            ["HONDA", "https://momobil.id/honda"],
+            ["HYUNDAI", "https://momobil.id/hyundai"],
+            ["JEEP", "https://momobil.id/jeep"],
+            ["KIA", "https://momobil.id/kia"],
+            ["MAZDA", "https://momobil.id/mazda"],
+            ["MERCEDES BENZ", "https://momobil.id/mercedes%20benz"],
+            ["MINI", "https://momobil.id/mini"],
+            ["MITSUBISHI", "https://momobil.id/mitsubishi"],
+            ["SUBARU", "https://momobil.id/subaru"],
+            ["SUZUKI", "https://momobil.id/suzuki"],
+            ["TOYOTA", "https://momobil.id/toyota"],
+            ["WULING", "https://momobil.id/wuling"],
+            ["MG", "https://momobil.id/mg"],
+            ["CHERY", "https://momobil.id/chery"],
+            ["GWM", "https://momobil.id/gwm"],
+            ["BYD", "https://momobil.id/byd"],
+          ].map(([merek, link]) => (
+            <div key={merek} className="flex items-center border-t border-gray-300 py-2.5 px-3">
+              <span className="text-sm text-gray-700 w-1/3 flex-shrink-0 text-center border-r border-gray-300 pr-3">{merek}</span>
+              <a href={link} className="text-blue-600 hover:underline text-sm flex-1 text-right truncate pl-3">{link}</a>
+            </div>
+          ))}
+        </div>
       </span>
     ),
   },
