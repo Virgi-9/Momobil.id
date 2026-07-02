@@ -52,7 +52,25 @@ export default function Navbar() {
   return (
     <>
     <header className={`sticky top-0 z-50 bg-white border-b border-gray-200 transition-shadow duration-300 ${isScrolled ? "shadow-lg" : ""}`}>
-      {/* Top bar */}
+      {/* ── MOBILE NAVBAR ── */}
+      <div className="md:hidden px-4 pt-3 pb-2">
+        {/* Row 1: Logo + Lokasi */}
+        <div className="flex items-center justify-between">
+          <Link href="/">
+            <img src="/logoweb/momobilIcon_hd.bf14c0ed.svg" alt="momobil.id" className="h-7 w-auto" />
+          </Link>
+          <div className="flex items-center gap-1 text-sm font-medium text-gray-700">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span>Indonesia</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── DESKTOP NAVBAR ── */}
+      <div className="hidden md:block">
       <div className="max-w-screen-xl mx-auto px-4 lg:px-6">
         <div className="flex items-center h-[73px] gap-3">
           {/* Logo */}
@@ -126,26 +144,10 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden ml-auto p-2 text-gray-600"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle menu"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              {menuOpen ? (
-                <path d="M18 6L6 18M6 6l12 12" />
-              ) : (
-                <>
-                  <line x1="3" y1="6" x2="21" y2="6" />
-                  <line x1="3" y1="12" x2="21" y2="12" />
-                  <line x1="3" y1="18" x2="21" y2="18" />
-                </>
-              )}
-            </svg>
-          </button>
+          {/* Mobile hamburger — hidden, mobile uses dedicated navbar above */}
         </div>
       </div>
+      </div> {/* end hidden md:block desktop wrapper */}
 
       {/* Sub-nav */}
       <div className="hidden md:block bg-gray-50">

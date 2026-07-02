@@ -169,41 +169,33 @@ export const articles: Article[] = [
   {
     id: 1,
     title: "Jangan Disepelekan! 8 Kebiasaan Kecil Ini Bikin Mobil Awet dan Jarang Masuk Bengkel",
-    excerpt:
-      "Menjaga performa mobil kesayangan sebenarnya tidak selalu harus dimulai dari servis besar berbiaya mahal.",
+    excerpt: "Menjaga performa mobil kesayangan sebenarnya tidak selalu harus dimulai dari servis besar berbiaya mahal.",
     date: "sehari yang lalu",
-    image:
-      "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=400&q=75",
+    image: "/berita/8 kebiasaan kecil.webp",
     category: "News",
   },
   {
     id: 2,
     title: "Resmi Meluncur Mulai Rp700 Jutaan, XPeng Siap Gempur Pasar Indonesia Pakai G6 AWD dan X9 Facelift",
-    excerpt:
-      "Pasar kendaraan listrik (EV) di Indonesia kembali diguncang oleh kedatangan inovasi terbaru dari XPeng.",
+    excerpt: "Pasar kendaraan listrik (EV) di Indonesia kembali diguncang oleh kedatangan inovasi terbaru dari XPeng.",
     date: "2 hari yang lalu",
-    image:
-      "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400&q=75",
+    image: "/berita/xpeng 700juta.webp",
     category: "News",
   },
   {
     id: 3,
     title: "Perbedaan Suzuki XL7 Alpha vs Beta vs Zeta, Apa Saja Bedanya?",
-    excerpt:
-      "Suzuki XL7 mengukuhkan posisinya sebagai salah satu Low SUV (LSUV) 7-seater terlaris di Indonesia.",
+    excerpt: "Suzuki XL7 mengukuhkan posisinya sebagai salah satu Low SUV (LSUV) 7-seater terlaris di Indonesia.",
     date: "5 hari yang lalu",
-    image:
-      "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=400&q=75",
+    image: "/berita/perbedaan xl7.webp",
     category: "News",
   },
   {
     id: 4,
     title: "Perbedaan Suzuki Fronx GL, GX, dan SGX: Jangan Salah Pilih Varian!",
-    excerpt:
-      "Suzuki Fronx hadir sebagai penantang serius di segmen compact crossover dengan gen DNA yang kuat.",
+    excerpt: "Suzuki Fronx hadir sebagai penantang serius di segmen compact crossover dengan gen DNA yang kuat.",
     date: "5 hari yang lalu",
-    image:
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=400&q=75",
+    image: "/berita/perbedaan fronx.webp",
     category: "News",
   },
 ];

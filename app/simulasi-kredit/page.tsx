@@ -208,9 +208,147 @@ export default function SimulasiKreditPage() {
   return (
     <>
       <Navbar />
+
+      {/* ── MOBILE HEADER ── */}
+      <div className="md:hidden bg-white sticky top-0 z-50 border-b border-gray-100">
+        <div className="flex items-center gap-3 px-4 py-3">
+          <a href="/">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+          </a>
+          <span className="font-bold text-gray-900 text-base">Simulasi Kredit</span>
+        </div>
+      </div>
+
       <main className="pb-16 md:pb-0 bg-gray-50">
 
-        {/* ── HERO ── */}
+        {/* ── MOBILE LAYOUT ── */}
+        <div className="md:hidden">
+
+          {/* Hero */}
+          <div className="bg-gradient-to-b from-yellow-50 to-white px-5 pt-5 pb-6 text-center">
+            <h1 className="text-lg font-bold text-gray-900 mb-2">Simulasi Perhitungan Kredit Mobil</h1>
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Ngidam mobil baru, bekas, atau listrik? Simulasi-in dulu aja, praktis tanpa repot hitung manual. Kamu bisa bandingin harga dan cicilan sesuai kantong, lalu pilih mobil yang cocok. Cobain yuk!
+            </p>
+          </div>
+
+          {/* Tabs + Form */}
+          <div className="px-4 pb-6">
+            {/* Tabs */}
+            <div className="flex bg-gray-100 rounded-full p-1 mb-5">
+              <button
+                onClick={() => { setTab("bekas"); setResult(null); }}
+                className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${tab === "bekas" ? "bg-yellow-400 text-gray-900 shadow-sm" : "text-gray-500"}`}
+              >
+                Mobil bekas
+              </button>
+              <button
+                onClick={() => { setTab("baru"); setResult(null); }}
+                className={`flex-1 py-2 rounded-full text-sm font-semibold transition-all ${tab === "baru" ? "bg-yellow-400 text-gray-900 shadow-sm" : "text-gray-500"}`}
+              >
+                Mobil baru
+              </button>
+            </div>
+
+            {/* Judul kalkulator */}
+            <h2 className="font-bold text-gray-900 text-sm mb-4">Kalkulator kredit mobil {tab === "bekas" ? "bekas" : "baru"}</h2>
+
+            {/* Form stacked */}
+            <div className="flex flex-col gap-3">
+              <input
+                type="text"
+                placeholder="Harga kendaraan"
+                value={harga}
+                onChange={(e) => setHarga(formatRupiah(e.target.value))}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+              <input
+                type="text"
+                placeholder="Uang Muka"
+                value={uangMuka}
+                onChange={(e) => setUangMuka(formatRupiah(e.target.value))}
+                className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              />
+              <div className="relative">
+                <select
+                  value={area}
+                  onChange={(e) => setArea(e.target.value)}
+                  className="w-full border border-gray-200 rounded-xl px-4 py-3.5 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 bg-white cursor-pointer appearance-none"
+                >
+                  <option value="">Area</option>
+                  {areas.map((a) => <option key={a} value={a}>{a}</option>)}
+                </select>
+                <svg className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-400 mt-3 leading-relaxed">
+              *Simulasi merupakan kisaran, dan dapat berubah sewaktu-waktu tanpa pemberitahuan
+            </p>
+
+            <button
+              onClick={handleHitung}
+              disabled={!harga || !area}
+              className={`w-full mt-4 py-3.5 rounded-xl text-sm font-bold transition-colors ${harga && area ? "bg-yellow-400 text-gray-900" : "bg-gray-200 text-gray-400 cursor-not-allowed"}`}
+            >
+              Hitung Simulasi
+            </button>
+
+            {/* Result */}
+            {result && (
+              <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex flex-col gap-3">
+                <div className="flex justify-between">
+                  <div className="text-center flex-1">
+                    <p className="text-xs text-gray-500 mb-1">Estimasi Cicilan/Bulan</p>
+                    <p className="text-base font-black text-yellow-600">{result.cicilan}</p>
+                  </div>
+                  <div className="text-center flex-1 border-x border-yellow-200">
+                    <p className="text-xs text-gray-500 mb-1">Tenor</p>
+                    <p className="text-base font-black text-gray-800">{result.tenor}</p>
+                  </div>
+                  <div className="text-center flex-1">
+                    <p className="text-xs text-gray-500 mb-1">Uang Muka</p>
+                    <p className="text-base font-black text-gray-800">{result.dp}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* 3 Steps vertikal */}
+          <div className="px-4 pb-6 border-t border-gray-100 pt-6">
+            <div className="flex flex-col gap-6">
+              {[
+                { img: "/skredit/credSimSelectionIcon.6639f9a5.svg", title: "Masukkan harga & jumlah dp", desc: "Atur uang muka sesuai kemampuanmu, biar cicilan terasa lebih ringan." },
+                { img: "/skredit/credSimCalculatorIcon.5f688e09.svg", title: "Klik hitung simulasi", desc: "Hasil simulasi cicilamu muncul hitungan detik, transparan tanpa biaya tersembunyi." },
+                { img: "/skredit/credSimTenorIcon.58ebfbba.svg", title: "Dapatkan penawaran", desc: "Dapatkan penawaran harga & cicilan terbaik dari momobil.id." },
+              ].map((step, i) => (
+                <div key={i} className="flex flex-col items-center text-center gap-3">
+                  <img src={step.img} alt={step.title} className="w-20 h-20 object-contain" />
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-sm mb-1">{step.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* FAQ */}
+          <div className="px-4 pb-6 border-t border-gray-100 pt-4">
+            <div className="flex flex-col gap-3">
+              {faqs.map((faq, i) => (
+                <FaqItem key={i} q={faq.q} a={faq.a} />
+              ))}
+            </div>
+          </div>
+
+        </div>
+
+        {/* ── DESKTOP LAYOUT ── */}
+        <div className="hidden md:block">
         <section className="bg-gradient-to-b from-yellow-100 via-yellow-50 to-gray-50 pt-14 pb-12 px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-5">
@@ -376,6 +514,8 @@ export default function SimulasiKreditPage() {
             </div>
           </div>
         </section>
+
+        </div> {/* end hidden md:block */}
 
       </main>
       <Footer />

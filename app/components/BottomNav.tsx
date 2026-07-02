@@ -18,18 +18,31 @@ const navItems = [
   {
     label: "Mobil Bekas",
     href: "/mobil-bekas",
-    iconImg: "/navbar/mbekas.svg",
+    icon: (active: boolean) => (
+      <Image src="/navbar/mbekas.svg" alt="" width={22} height={22} className={active ? "opacity-100" : "opacity-50"} />
+    ),
   },
   {
     label: "Jual",
     href: "/jual",
-    iconImg: "/navbar/jual.svg",
     isJual: true,
+    icon: () => (
+      <div className="bg-yellow-400 rounded-full w-12 h-12 flex items-center justify-center shadow-lg shadow-yellow-200 -mt-4">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f2937" strokeWidth="2.5">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </div>
+    ),
   },
   {
-    label: "Mobil Baru",
-    href: "/mobil-baru",
-    iconImg: "/navbar/mbaru.svg",
+    label: "Iklan Saya",
+    href: "/iklan-saya",
+    icon: (active: boolean) => (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={active ? "#eab308" : "#6b7280"} strokeWidth="2">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+      </svg>
+    ),
   },
   {
     label: "Akun",
@@ -47,7 +60,7 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-bottom">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
       <div className="flex items-center justify-around px-2 py-2">
         {navItems.map((item) => {
           const active = pathname === item.href;
@@ -58,26 +71,10 @@ export default function BottomNav() {
               className="flex flex-col items-center gap-0.5 min-w-0 flex-1"
             >
               <div className="flex items-center justify-center">
-                {"iconImg" in item ? (
-                  "isJual" in item ? (
-                    <div className="bg-yellow-400 rounded-full w-10 h-10 flex items-center justify-center shadow-lg shadow-yellow-200">
-                      <Image src={item.iconImg!} alt="" width={20} height={20} />
-                    </div>
-                  ) : (
-                    <div className={`w-[22px] h-[22px] flex items-center justify-center ${active ? "opacity-100" : "opacity-50"}`}>
-                      <Image src={item.iconImg!} alt="" width={22} height={22} />
-                    </div>
-                  )
-                ) : (
-                  item.icon!(active)
-                )}
+                {item.icon(active)}
               </div>
-              {item.label !== "Jual" && (
-                <span
-                  className={`text-[10px] truncate ${
-                    active ? "text-yellow-500 font-medium" : "text-gray-500"
-                  }`}
-                >
+              {!item.isJual && (
+                <span className={`text-[10px] truncate ${active ? "text-yellow-500 font-medium" : "text-gray-500"}`}>
                   {item.label}
                 </span>
               )}
