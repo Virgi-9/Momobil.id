@@ -22,7 +22,7 @@ export default function ArticlesSection() {
           {articles.map((article) => (
             <Link
               key={article.id}
-              href={`/news/${article.id}`}
+              href={`/berita/${article.id}`}
               className="group flex flex-col bg-white overflow-hidden hover:shadow-sm transition-shadow"
             >
               {/* Image */}

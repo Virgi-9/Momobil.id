@@ -7,12 +7,14 @@ type Mode = "masuk" | "daftar";
 type Props = {
   initialMode?: Mode;
   onClose: () => void;
+  onLogin?: (id: string, password: string) => boolean;
 };
 
-export default function AuthModal({ initialMode = "masuk", onClose }: Props) {
+export default function AuthModal({ initialMode = "masuk", onClose, onLogin }: Props) {
   const [mode, setMode] = useState<Mode>(initialMode);
   const [showPass, setShowPass] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   // Masuk fields
   const [loginId, setLoginId] = useState("");
@@ -25,6 +27,18 @@ export default function AuthModal({ initialMode = "masuk", onClose }: Props) {
 
   const isLoginFilled = loginId.trim() !== "" && loginPass.trim() !== "";
   const isDaftarFilled = nama.trim() !== "" && registerId.trim() !== "" && registerPass.trim() !== "" && agreed;
+
+  const handleLogin = () => {
+    setLoginError("");
+    if (onLogin) {
+      const ok = onLogin(loginId, loginPass);
+      if (ok) {
+        onClose();
+      } else {
+        setLoginError("Email/nomor atau kata sandi salah.");
+      }
+    }
+  };
 
   return (
     /* Backdrop */
@@ -103,8 +117,14 @@ export default function AuthModal({ initialMode = "masuk", onClose }: Props) {
               </button>
             </div>
 
+            {/* Error message */}
+            {loginError && (
+              <p className="text-red-500 text-xs -mt-1">{loginError}</p>
+            )}
+
             {/* Masuk button */}
             <button
+              onClick={handleLogin}
               disabled={!isLoginFilled}
               className={`w-full py-3.5 rounded-xl text-[14px] font-semibold transition-colors mt-1 ${
                 isLoginFilled

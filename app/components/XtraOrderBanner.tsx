@@ -6,7 +6,7 @@ export default function XtraOrderBanner() {
         {/* ── MOBILE ── */}
         <div className="md:hidden bg-yellow-50 rounded-2xl p-4 border border-yellow-100">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-5xl">🚗</span>
+            <img src="/logoweb/xtraOrderCarIcon.d22fb37c.svg" alt="" className="w-12 h-12 object-contain" />
             <div>
               <p className="font-bold text-gray-900 text-sm leading-tight">Belum menemukan mobil pilihanmu?</p>
               <p className="text-gray-500 text-sm mt-0.5">Yuk ajukan lewat form pengajuan</p>
@@ -24,18 +24,7 @@ export default function XtraOrderBanner() {
         >
           <div className="flex items-center gap-4">
             <div className="flex-shrink-0 relative">
-              <svg width="52" height="40" viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <text x="0" y="14" fontSize="13">✨</text>
-                <text x="44" y="12" fontSize="11">✨</text>
-                <rect x="6" y="24" width="50" height="16" rx="4" fill="#facc15" />
-                <path d="M16 24 L22 14 L44 14 L50 24Z" fill="#fde047" />
-                <rect x="23" y="15" width="9" height="8" rx="1" fill="#bae6fd" />
-                <rect x="34" y="15" width="9" height="8" rx="1" fill="#bae6fd" />
-                <circle cx="18" cy="40" r="6" fill="#1f2937" />
-                <circle cx="18" cy="40" r="3" fill="#9ca3af" />
-                <circle cx="46" cy="40" r="6" fill="#1f2937" />
-                <circle cx="46" cy="40" r="3" fill="#9ca3af" />
-              </svg>
+              <img src="/logoweb/xtraOrderCarIcon.d22fb37c.svg" alt="" className="w-14 h-10 object-contain" />
             </div>
             <div>
               <p className="font-bold text-gray-800 text-sm">Belum menemukan mobil pilihanmu?</p>

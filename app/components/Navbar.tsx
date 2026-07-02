@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import AuthModal from "./AuthModal";
+import { useAuth } from "../hooks/useAuth";
 
 const subNavLinks = [
   {
@@ -40,7 +41,17 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [authModal, setAuthModal] = useState<null | "masuk" | "daftar">(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { user, login, logout } = useAuth();
+
+  // Tutup dropdown saat klik di luar
+  useEffect(() => {
+    if (!userMenuOpen) return;
+    const handler = () => setUserMenuOpen(false);
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [userMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,12 +157,81 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="hidden md:flex items-center gap-14 ml-auto">
-            <button
-              onClick={() => setAuthModal("masuk")}
-              className="text-sm font-medium text-gray-700 hover:text-yellow-500 transition-colors whitespace-nowrap"
-            >
-              Masuk/Daftar
-            </button>
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={(e) => { e.stopPropagation(); setUserMenuOpen(!userMenuOpen); }}
+                  className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+                >
+                  <div className="w-9 h-9 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+
+                {userMenuOpen && (
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    className="absolute right-0 top-12 bg-white border border-gray-200 rounded-2xl shadow-xl w-72 z-50 overflow-hidden"
+                  >
+                    {/* Avatar + nama */}
+                    <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100">
+                      <div className="w-11 h-11 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <p className="text-base font-bold text-gray-900">{user.name}</p>
+                    </div>
+
+                    {/* Upgrade Dealer Adira */}
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <div className="flex items-center justify-between bg-yellow-50 border border-yellow-200 rounded-xl px-3 py-2.5">
+                        <div className="flex items-center gap-2">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="#3b82f6"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                          <span className="text-xs font-medium text-gray-800">Upgrade jadi Dealer Adira</span>
+                          <span className="bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">Baru</span>
+                        </div>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2"><path d="M9 18l6-6-6-6"/></svg>
+                      </div>
+                    </div>
+
+                    {/* Menu items */}
+                    {[
+                      { tab: "profil", label: "Profil", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> },
+                      { tab: "kata-sandi", label: "Ubah kata sandi", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> },
+                      { tab: "iklan-saya", label: "Iklan Saya", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg> },
+                      { tab: "pengajuan", label: "Pengajuan saya", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> },
+                      { tab: "favorit", label: "Favorit", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> },
+                      { tab: "input-order", label: "Input Order", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> },
+                    ].map((item) => (
+                      <Link
+                        key={item.tab}
+                        href={`/profil?tab=${item.tab}`}
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-3 px-5 py-3.5 border-b border-gray-100 hover:bg-gray-50 transition-colors text-gray-800"
+                      >
+                        <span className="text-gray-600">{item.icon}</span>
+                        <span className="text-sm font-medium">{item.label}</span>
+                      </Link>
+                    ))}
+
+                    {/* Keluar */}
+                    <button
+                      onClick={() => { logout(); setUserMenuOpen(false); }}
+                      className="w-full py-4 text-red-500 font-bold text-sm text-center hover:bg-red-50 transition-colors"
+                    >
+                      Keluar
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => setAuthModal("masuk")}
+                className="text-sm font-medium text-gray-700 hover:text-yellow-500 transition-colors whitespace-nowrap"
+              >
+                Masuk/Daftar
+              </button>
+            )}
             <button
               onClick={() => setAuthModal("daftar")}
               className="flex items-center gap-1.5 border border-gray-800 text-gray-800 text-base font-semibold px-7 h-[45px] rounded-xl hover:bg-gray-50 transition-colors"
@@ -252,6 +332,7 @@ export default function Navbar() {
         <AuthModal
           initialMode={authModal}
           onClose={() => setAuthModal(null)}
+          onLogin={login}
         />
       )}
     </>
