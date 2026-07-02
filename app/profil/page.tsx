@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
@@ -251,6 +251,20 @@ const mobileMenuItems = [
 ];
 
 export default function ProfilPage() {
+  return (
+    <>
+      <Navbar />
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProfilPageContent />
+      </Suspense>
+      <Footer />
+      <BottomNav />
+      <WaChat />
+    </>
+  );
+}
+
+function ProfilPageContent() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -285,8 +299,6 @@ export default function ProfilPage() {
 
   return (
     <>
-      <Navbar />
-
       {/* Mobile header */}
       <div className="md:hidden bg-white sticky top-0 z-50 border-b border-gray-100">
         <div className="flex items-center justify-between px-4 py-3">
@@ -385,10 +397,6 @@ export default function ProfilPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
-      <BottomNav />
-      <WaChat />
     </>
   );
 }
