@@ -1,13 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
+import AuthModal from "./AuthModal";
 
 export default function BottomNav() {
   const pathname = usePathname();
-  const { user } = useAuth();
+  const router = useRouter();
+  const { user, login } = useAuth();
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const navItems = [
     {
@@ -31,6 +35,7 @@ export default function BottomNav() {
       label: "Jual",
       href: "/jual",
       isJual: true,
+      isJualBtn: true,
       icon: () => (
         <div className="bg-yellow-400 rounded-full w-12 h-12 flex items-center justify-center shadow-lg shadow-yellow-200 -mt-4">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1f2937" strokeWidth="2.5">
@@ -51,7 +56,8 @@ export default function BottomNav() {
     },
     {
       label: "Akun",
-      href: user ? "/profil" : "/",
+      href: "/profil",
+      isAkun: true,
       icon: (active: boolean) => user ? (
         <div className="w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center text-white text-[10px] font-bold">
           {user.name.charAt(0).toUpperCase()}
@@ -66,28 +72,50 @@ export default function BottomNav() {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
-      <div className="flex items-center justify-around px-2 py-2">
-        {navItems.map((item) => {
-          const active = pathname === item.href;
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="flex flex-col items-center gap-0.5 min-w-0 flex-1"
-            >
-              <div className="flex items-center justify-center">
-                {item.icon(active)}
-              </div>
-              {!item.isJual && (
-                <span className={`text-[10px] truncate ${active ? "text-yellow-500 font-medium" : "text-gray-500"}`}>
-                  {item.label}
-                </span>
-              )}
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+    <>
+      {/* Auth Modal */}
+      {showAuthModal && (
+        <AuthModal 
+          initialMode="masuk" 
+          onClose={() => setShowAuthModal(false)}
+          onLogin={login}
+        />
+      )}
+
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+        <div className="flex items-center justify-around px-2 py-2">
+          {navItems.map((item) => {
+            // For Akun item, check if pathname is /profil
+            const active = item.isAkun ? pathname === "/profil" : pathname === item.href;
+            
+            // Handle Akun item click - show modal if not logged in
+            const handleClick = (e: React.MouseEvent) => {
+              if ((item.isAkun || item.isJualBtn) && !user) {
+                e.preventDefault();
+                setShowAuthModal(true);
+              }
+            };
+            
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={handleClick}
+                className="flex flex-col items-center gap-0.5 min-w-0 flex-1"
+              >
+                <div className="flex items-center justify-center">
+                  {item.icon(active)}
+                </div>
+                {!item.isJual && (
+                  <span className={`text-[10px] truncate ${active ? "text-yellow-500 font-medium" : "text-gray-500"}`}>
+                    {item.label}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </>
   );
 }

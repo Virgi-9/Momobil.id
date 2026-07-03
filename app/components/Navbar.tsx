@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import AuthModal from "./AuthModal";
 import { useAuth } from "../hooks/useAuth";
 
@@ -43,7 +43,9 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const { user, login, logout } = useAuth();
+  const jualButtonRef = useRef<HTMLButtonElement>(null);
 
   // Tutup dropdown saat klik di luar
   useEffect(() => {
@@ -61,6 +63,14 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleJualClick = () => {
+    if (user) {
+      router.push("/jual");
+    } else {
+      setAuthModal("masuk");
+    }
+  };
 
   return (
     <>
@@ -233,7 +243,8 @@ export default function Navbar() {
               </button>
             )}
             <button
-              onClick={() => setAuthModal("daftar")}
+              ref={jualButtonRef}
+              onClick={handleJualClick}
               className="flex items-center gap-1.5 border border-gray-800 text-gray-800 text-base font-semibold px-7 h-[45px] rounded-xl hover:bg-gray-50 transition-colors"
             >
               <Image src="/navbar/jual.svg" alt="" width={25} height={25} />
@@ -316,7 +327,10 @@ export default function Navbar() {
               Masuk/Daftar
             </button>
             <button
-              onClick={() => { setMenuOpen(false); setAuthModal("daftar"); }}
+              onClick={() => {
+                setMenuOpen(false);
+                handleJualClick();
+              }}
               className="flex-1 text-base font-semibold text-gray-800 border border-gray-800 py-2 rounded-xl hover:bg-gray-50 flex items-center justify-center gap-1"
             >
               <Image src="/navbar/jual.svg" alt="" width={13} height={13} />

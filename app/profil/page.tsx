@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useAuth } from "../hooks/useAuth";
 import Navbar from "../components/Navbar";
 import BottomNav from "../components/BottomNav";
@@ -268,6 +268,7 @@ function ProfilPageContent() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [activeTab, setActiveTab] = useState<Tab>((searchParams.get("tab") as Tab) ?? "profil");
 
   useEffect(() => {
@@ -325,7 +326,10 @@ function ProfilPageContent() {
                   return (
                     <button
                       key={item.id}
-                      onClick={() => setActiveTab(item.id)}
+                      onClick={() => {
+                        setActiveTab(item.id);
+                        window.history.replaceState(null, "", `?tab=${item.id}`);
+                      }}
                       className={`w-full flex items-center gap-3 px-4 py-3.5 border-b border-gray-100 last:border-0 text-left transition-colors ${active ? "bg-yellow-50 border-l-4 border-l-yellow-400" : "hover:bg-gray-50 border-l-4 border-l-transparent"}`}
                     >
                       <div className={active ? "text-yellow-500" : "text-gray-500"}>{item.icon}</div>
@@ -381,15 +385,26 @@ function ProfilPageContent() {
 
           {/* Menu list */}
           <div className="mt-3">
-            {mobileMenuItems.map((item, i) => (
-              <button key={i} className="w-full flex items-center gap-4 px-4 py-4 border-b border-gray-100 hover:bg-gray-50 text-left">
-                <div className="text-gray-700 flex-shrink-0">{item.icon}</div>
-                <div>
-                  <p className="text-sm font-bold text-gray-900">{item.label}</p>
-                  <p className="text-sm text-gray-500 mt-0.5">{item.sub}</p>
-                </div>
-              </button>
-            ))}
+            {mobileMenuItems.map((item, i) => {
+              const handleNavigate = () => {
+                if (item.label === "Iklan Saya") {
+                  router.push("/iklan-saya");
+                }
+              };
+              return (
+                <button 
+                  key={i} 
+                  onClick={handleNavigate}
+                  className="w-full flex items-center gap-4 px-4 py-4 border-b border-gray-100 hover:bg-gray-50 text-left transition-colors"
+                >
+                  <div className="text-gray-700 flex-shrink-0">{item.icon}</div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-900">{item.label}</p>
+                    <p className="text-sm text-gray-500 mt-0.5">{item.sub}</p>
+                  </div>
+                </button>
+              );
+            })}
           </div>
 
           <div className="px-4 py-6 text-center">
